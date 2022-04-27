@@ -1,8 +1,9 @@
 import { Helmet } from "react-helmet";
 import {Routes, Route} from "react-router-dom"
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
-import AboutPage from "./pages/AboutPage";
+import PostPage from "./pages/PostPage";
 import ContactPage from "./pages/ContactPage";
 import DonatePage from "./pages/DonatePage";
 
@@ -38,10 +39,11 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />}/>
-        <Route path="/about" element={<AboutPage />}/>
+        <Route path="/posts" element={<PostPage />}/>
         <Route path="/donate" element={<DonatePage />}/>
         <Route path="/contact" element={<ContactPage />}/>
       </Routes>
+      <Footer />
     </div>
   );
 }

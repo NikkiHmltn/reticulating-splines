@@ -4,9 +4,9 @@ function AboutPage() {
   return (
     <div className="aboutpage">
        <Helmet>
-        <title>Reticulating Splines - About</title>
+        <title>Reticulating Splines - Blog</title>
       </Helmet>
-      <p>About Page</p>
+      <p>Blog Page</p>
     </div>
   );
 }
