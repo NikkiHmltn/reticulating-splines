@@ -1,0 +1,16 @@
+.pack-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1rem;
+}
+
+.pack-icon {
+    height: 100px;
+    width: 100px;
+}
+
+.pack-icon > img {
+    height: 50px;
+    width: 50px;
+}

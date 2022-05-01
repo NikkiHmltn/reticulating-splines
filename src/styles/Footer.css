@@ -1,18 +1,13 @@
-.footer-container {
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.page-footer {
     background-color: black;
-    color: white;
-    position: absolute;
-    bottom: 0;
-    width: 100%; 
-    display: flex;
-}
-
-.logo-div {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.logo-div:last-child {
-    margin-left: auto;
 }

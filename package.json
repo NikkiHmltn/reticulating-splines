@@ -7,6 +7,9 @@
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
+    "dotenv": "^16.0.0",
+    "jquery": "^3.6.0",
+    "materialize-css": "^1.0.0-rc.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-helmet": "^6.1.0",
@@ -37,5 +40,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.14",
+    "@types/materialize-css": "^1.0.11"
   }
 }
