@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet";
 import M from 'materialize-css';
+import './App.css'
 import {Routes, Route} from "react-router-dom"
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
