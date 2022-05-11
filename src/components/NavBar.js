@@ -2,7 +2,7 @@ import {NavLink} from 'react-router-dom'
 import {useEffect } from 'react'
 import M from  'materialize-css'
 import '../styles/NavBar.css'
-import simsBanner from '../images/simsbannerplaceholder.png'
+import simsBanner from '../images/sims2.png'
 
 function NavBar() {
 

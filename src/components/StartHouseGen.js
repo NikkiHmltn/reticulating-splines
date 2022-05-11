@@ -3,18 +3,22 @@ import simsApi from '../util/api/axios.config.js'
 import '../styles/StartHouse.css'
 
 
-const StartHouseGen = () => {
+const StartHouseGen = ({changePacks, nextStep}) => {
     const [expansionPacks, setExpansionPacks] = useState([])
     const [gamePacks, setGamePacks] = useState([])
     const [kitPacks, setKitPacks] = useState([])
     const [stuffPacks, setStuffPacks] = useState([])
-
 
     useEffect(()=> {
         simsApi.get("/sims-packs")
         .then((res) => {
             const allPacks = res.data.data
             for(let i=0; i < allPacks.length; i++) {
+                let packObj = {
+                    name: allPacks[i].name,
+                    icon: allPacks[i].icon
+                }
+                changePacks("add", packObj)
                 let packType = allPacks[i].type
                 if (packType === 'Expansion') {
                     setExpansionPacks(expansionPacks => [...expansionPacks, allPacks[i]])
@@ -24,15 +28,31 @@ const StartHouseGen = () => {
                     setKitPacks(kitPacks => [...kitPacks, allPacks[i]])
                 } else if (packType === 'Stuff') {
                     setStuffPacks(stuffPacks => [...stuffPacks, allPacks[i]])
-                    console.log("set stuff packs hello")
                 } 
             }  
         })
     }, [])
 
     const handleChange = (e) => {
+        let packDiv = e.target.parentNode.parentNode
+        
        e.target.setAttribute('className', 'deselected')
        e.target.setAttribute("checked", 'checked')
+       if (e.target.checked) {
+            changePacks("remove", e.target.value)
+       } else { 
+            let foundPack;
+            if (packDiv.className.includes("Expansion")) {
+                foundPack = expansionPacks.filter(pack => pack.name == e.target.value)
+            } else if (packDiv.className.includes("Stuff")) {
+                foundPack = stuffPacks.filter(pack => pack.name == e.target.value) 
+            } else if (packDiv.className.includes("Game")) {
+                foundPack = gamePacks.filter(pack => pack.name == e.target.value) 
+            } else if (packDiv.className.includes("Kit")) {
+                foundPack = kitPacks.filter(pack => pack.name == e.target.value) 
+            }
+            changePacks("add", foundPack)
+       }
     }
 
     const renderDivs = (packTypeArr) => {
@@ -40,7 +60,7 @@ const StartHouseGen = () => {
             return (
                 <div key={pack._id} className={pack.type + ' pack-icon'}>                  
                     <label className="tooltip pack-icon" data-text={pack.name}>
-                        <input type="checkbox" onChange={handleChange}/>
+                        <input type="checkbox" value={pack.name} onChange={handleChange}/>
                         <img className="hoverable" src={pack.icon} alt={pack.name}/>
                     </label>
                 </div>
@@ -73,10 +93,20 @@ const StartHouseGen = () => {
             </div>
             </form>
             <div className='button-container center-align'>
-                <button class="btn waves-effect waves-light">Next
-                    <i class="material-icons right">chevron_right</i>
+                <button className="btn waves-effect waves-light" onClick={nextStep}>Next
+                    <i className="material-icons right">chevron_right</i>
                 </button>
             </div>  
+            <div className='radio-container'>
+                <label>
+                    <input name="step1" type="radio" checked />
+                    <span></span>
+                </label>
+                <label>
+                    <input name="step2" type="radio" disabled="disabled"/>
+                    <span></span>
+                </label>
+            </div>
         </div>
         
     )
