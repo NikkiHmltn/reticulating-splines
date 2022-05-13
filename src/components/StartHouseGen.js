@@ -93,13 +93,13 @@ const StartHouseGen = ({changePacks, nextStep}) => {
             </div>
             </form>
             <div className='button-container center-align'>
-                <button className="btn waves-effect waves-light" onClick={nextStep}>Next
+                <button className="btn waves-effect waves-light" onClick={()=>nextStep(2)}>Next
                     <i className="material-icons right">chevron_right</i>
                 </button>
             </div>  
             <div className='radio-container'>
                 <label>
-                    <input name="step1" type="radio" checked />
+                    <input name="step1" type="radio" defaultChecked />
                     <span></span>
                 </label>
                 <label>
