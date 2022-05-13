@@ -3,7 +3,7 @@
 .nav-center {
     display:flex;
     justify-content: center;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat'; 
 
 }
 
@@ -40,4 +40,5 @@
 .navlink {
     color: white;
     text-decoration: none;
-}
+} 
+

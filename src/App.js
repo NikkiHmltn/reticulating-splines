@@ -12,6 +12,7 @@ import 'materialize-css/dist/css/materialize.min.css'
 import HouseGenerator from "./pages/HouseGenerator";
 import SimGenerator from "./pages/SImGenerator";
 
+
 function App() {
   M.AutoInit();
   return (
