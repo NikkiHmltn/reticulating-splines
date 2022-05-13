@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet";
-import M from 'materialize-css';
 import './App.css'
 import {Routes, Route} from "react-router-dom"
 import NavBar from "./components/NavBar";
@@ -8,12 +7,12 @@ import HomePage from "./pages/HomePage";
 import PostPage from "./pages/PostPage";
 import ContactPage from "./pages/ContactPage";
 import DonatePage from "./pages/DonatePage";
-import 'materialize-css/dist/css/materialize.min.css'
 import HouseGenerator from "./pages/HouseGenerator";
 import SimGenerator from "./pages/SImGenerator";
 
+
 function App() {
-  M.AutoInit();
+
   return (
     <div className="App">
        <Helmet>

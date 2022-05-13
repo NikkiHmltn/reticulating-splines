@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import StartHouseGen from "../components/StartHouseGen"
-import Step2HouseGen from "../components/Step2HouseGten";
+import Step2HouseGen from "../components/Step2HouseGen";
 
 const reducer = (prevState, action) => {
 	switch (action.type) {
@@ -24,7 +24,7 @@ const reducer = (prevState, action) => {
             return { ...prevState, randomize: action.payload };
         case "colorpalette": 
             return { ...prevState, colorPalette: action.payload };
-        default:
+		default:
 			return prevState;
 	}
 };
@@ -55,8 +55,8 @@ const HouseGenerator = () => {
         }
     } 
 
-    const nextStep = () => {
-        dispatch({type: "setStep", payload: 2})
+    const nextStep = (num) => {
+        dispatch({type: "setStep", payload: num})
     }
 
     const changeBuildSettings = (typeOfType, payload) => {
@@ -72,8 +72,20 @@ const HouseGenerator = () => {
     } else if (step === 2) {
         return (
             <div>
-                <Step2HouseGen changeBuildSettings={changeBuildSettings}/>
-                
+                <Step2HouseGen changeBuildSettings={changeBuildSettings} nextStep={nextStep}/>
+            </div>
+        )
+    } else if (step === 3) {
+        return (
+            <div>
+                <h1>Results go here</h1>
+                <div className='button-container center-align'>
+                    <button className="btn waves-effect waves-light" onClick={()=>nextStep(1)}> Start Over
+                    </button>
+                    <button className="btn waves-effect waves-light"> Give Me Another!
+                    </button>
+                </div>
+            
             </div>
         )
     }
