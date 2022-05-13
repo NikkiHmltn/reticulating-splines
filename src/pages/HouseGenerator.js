@@ -73,6 +73,7 @@ const HouseGenerator = () => {
         return (
             <div>
                 <Step2HouseGen changeBuildSettings={changeBuildSettings}/>
+                
             </div>
         )
     }
