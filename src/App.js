@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import {Routes, Route} from 'react-router-dom'
+import Home from './pages/Home'
+import HouseGen from './pages/HouseGen'
+import HouseGenResults from './pages/HouseGenResults'
+import { PackProvier } from './util/state/PackContext';
+import 'gestalt/dist/gestalt.css';
+import './common/css/houseGen.css'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PackProvier>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="house-generate" element={<HouseGen />} />
+          <Route path="house-generate/results" element={<HouseGenResults />} />
+        </Routes>
+      </div>
+    </PackProvier>
   );
 }
 

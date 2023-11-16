@@ -1,0 +1,7 @@
+.App, html, body {
+    width: 100%;
+}
+
+.deselected-pack {
+    filter: grayscale(100%);
+}
