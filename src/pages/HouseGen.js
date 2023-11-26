@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Heading } from 'gestalt'
+import { Heading, Box, Text } from 'gestalt'
 import usePackSwitch from '../util/state/PackContext'
 import HouseGenStep1 from '../components/HouseGenStep1'
+import HouseGenStep2 from '../components/HouseGenStep2'
 
 export default function HouseGen() {
 
@@ -11,13 +12,13 @@ const {selectedPacks, deselectedPacks, initializeState} = usePackSwitch()
 
 const [loading, setLoading] = useState(true)
 
-
     useEffect(()=>{
         (async () => {
             if (selectedPacks <= 0 && deselectedPacks <= 0){
                 await initializeState()
                 setLoading(false)
             }
+            
         })()
     }, [loading])
 
@@ -25,66 +26,36 @@ const [loading, setLoading] = useState(true)
     if (!loading) {
         return(
             <>
-                <Heading size="500" align='center'>
-                    SELECT WHICH SIMS PACKS YOU WOULD LIKE TO USE:
-                </Heading>
-                <HouseGenStep1 />
-                {/* <div>
-                    EXPANSIONS
-                    {expansions.map((e) => {
-                        return (
-                            <div>
-                                <h4>{e.name}</h4>
-                                <img src={e.icon}/>
-                            </div>
-                        )
-                    })}
-                </div>
-                <div>
-                    GAME PACKS
-                    {gamePacks.map((g) => {
-                        return (
-                            <div>
-                                <h4>{g.name}</h4>
-                                <img src={g.icon}/>
-                            </div>
-                        )
-                    })}
-                </div>
-                <div>
-                    STUFF PACKS
-                    {stuffPacks.map((s) => {
-                        return (
-                            <div>
-                                <h4>{s.name}</h4>
-                                <img src={s.icon}/>
-                            </div>
-                        )
-                    })}
-                </div>
-                <div>
-                    KITS
-                    {kits.map((k) => {
-                        return (
-                            <div>
-                                <h4>{k.name}</h4>
-                                <img src={k.icon}/>
-                            </div>
-                        )
-                    })}
-                </div> */}
-                {/* THIS IS WHERE I WILL PUT THE START OF THE GENERATOR
-                SO WE'RE GOING TO HAVE COMPONENTS HERE 
-    
-                1. USER DE-SELECTS PACKS THEY DONT WANT/OWN
-                2. USER SETS OPTIONS FOR GENERATOR 
-                    - # of sims in household (1-8)
-                    - simolean range (10,000 - 1,000,000) OR LET THEM SET max
-                    - # of rooms (studio = 0, up to 8) let them set max
-                    - # lot challenges (0 - 5) rec' setting it to max 3
-                    - # lot traits (0-3) */}
+                <Box margin={6}>
+                    <Heading size="500" align='center'>
+                        Select the packs you would like to include
+                    </Heading>
+                    <br/>
+                    <Heading align='center' size='400'>
+                        By default, they are all selected.
+                    </Heading>
+                    <br/>
+                    <Text align='center'>If you would like to <b>deselect</b> an pack, simply <b>click</b> on it!</Text>
+                    <Text align='center'> If it is <b>grey</b>, you have successfully deselected the pack. :)</Text>
+                    <HouseGenStep1 />
+                </Box>
+                <Box margin={6}>
+                    <Heading size="500" align='center'>
+                        Let's Talk About Options!
+                    </Heading>
+                    <br/>
+                    <Text align='center'>
+                        Please put the lowest number in the <b>"Min"</b> box and the highest number in the <b>"Max"</b> box. 
+                    </Text>
+                    <Text align='center'>
+                        The minimum number should be <b>lower</b> than the maximum number.
+                    </Text>
+                    <br />
+                    <br />
+                    <HouseGenStep2 />
+                </Box>
+
             </>
         )
     }
-
 }
