@@ -50,11 +50,14 @@ const [loading, setLoading] = useState(true)
                     <Text align='center'>
                         The minimum number should be <b>lower</b> than the maximum number.
                     </Text>
+                    <br/>
+                    <Text align='center'>
+                        If you don't provide any numbers, it will randomize the numbers for you.
+                    </Text>
                     <br />
                     <br />
                     <HouseGenStep2 />
                 </Box>
-
             </>
         )
     }

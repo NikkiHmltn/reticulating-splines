@@ -31,7 +31,7 @@ export default function Stuffs() {
     }
 
     useEffect(()=>{
-        console.log(selectedPacks, deselectedPacks)
+        // console.log(selectedPacks, deselectedPacks)
     }, [selectedPacks, deselectedPacks])
 
     return(
