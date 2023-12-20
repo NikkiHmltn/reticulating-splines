@@ -1,6 +1,6 @@
 import {createContext, useReducer, useContext} from 'react'
 import packReducer, { initialState } from './packReducer'
-import {getPacks} from '../api/index'
+import {getPacks, getTraits} from '../api/index'
 
 const PackContext = createContext(initialState)
 
@@ -43,9 +43,19 @@ export const PackProvier = ({children}) => { //a provider allows all its childre
 
     const initializeState = async () => {
         const allPacks = await getPacks()
+        const allTraits = await getTraits()
+        const lotTraitsFiltered = await allTraits.filter((trait) => trait.type === 'LC' || trait.type === 'LT')
         dispatch({
             type: "SET_INIT_PACK_STATE",
-            payload: {packs: allPacks}
+            payload: {packs: allPacks, traits: lotTraitsFiltered}
+        })
+        
+    }
+
+    const filterLotTraits = async () => {
+        console.log("filtering lot traits")
+        dispatch({
+            type: "FILTER_LOT_TRAITS", 
         })
     }
 
@@ -56,9 +66,11 @@ export const PackProvier = ({children}) => { //a provider allows all its childre
         expansions: state.expansions,
         gamePacks: state.gamePacks,
         stuffPacks: state.stuffPacks,
+        selectedPackLotTraits: state.selectedPackLotTraits,
         deselectPack,
         addSelectedPack,
         initializeState,
+        filterLotTraits,
     }
 
     //context always needs a "value" prop and "children" refers to the children components (will wrap this context around whole app)

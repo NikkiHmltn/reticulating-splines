@@ -30,7 +30,7 @@ export default function Expansions() {
     }
 
     useEffect(()=>{
-        console.log(selectedPacks, deselectedPacks)
+        // console.log(selectedPacks, deselectedPacks)
     }, [selectedPacks, deselectedPacks])
 
     return(
@@ -51,8 +51,9 @@ export default function Expansions() {
                 >
                 {expansions.map((e) => {
                     return(
-                        <>
+                        // <div key={e.name}>
                             <Flex 
+                                key={e.name}
                                 justifyContent="evenly"
                                 alignItems="center"
                                 direction="column"
@@ -62,6 +63,7 @@ export default function Expansions() {
                                 onClick={(e)=> handleIconClick(e)}
                             >
                                 <Text 
+                                key={e.pk}
                                     overflow='normal' 
                                     align='center' as='p' 
                                     size="200"
@@ -71,11 +73,12 @@ export default function Expansions() {
                                         {e.name}
                                     </span>       
                                 </Text>
-                                <Box key={e.pk}
+                                <Box 
                                     width={50}
                                     height={50}
                                 >
                                     <Image 
+                                    key={e.pk}
                                         alt={e.name}
                                         fit="contain"
                                         naturalHeight={1}
@@ -85,7 +88,7 @@ export default function Expansions() {
                                     />                                  
                                 </Box>
                             </Flex>
-                        </>
+                        // </div>
                     )})}
             </Flex>
             </Box>

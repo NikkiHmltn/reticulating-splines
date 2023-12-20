@@ -5,7 +5,7 @@ import Stuffs from "./icon-elements/Stuffs"
 import Games from "./icon-elements/Games"
 import Kits from "./icon-elements/Kits"
 
-export default function HouseGenStep1(props) {
+export default function HouseGenStep1() {
     return(
         <>
             <Box 
@@ -18,6 +18,7 @@ export default function HouseGenStep1(props) {
                     direction="row"
                     wrap
                 >
+                    {/* IDEA: buttons for each pack type to "deselect all" */}
                     <Expansions />
                     <Games />
                     <Kits />

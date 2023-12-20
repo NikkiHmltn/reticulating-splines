@@ -1,11 +1,13 @@
 import {Box, Flex, NumberField, Heading, Checkbox} from 'gestalt'
-import { useState } from 'react'
-import randomizeOptions from '../util/helpers/randomizeOptions'
-import usePackSwitch from '../util/state/PackContext'
-
+import { useEffect, useState } from 'react'
+import  { useNavigate }  from 'react-router-dom'
+import usePackSwitch from '../util/state/PackContext.js'
+import { randomizeOptions } from '../util/helpers/randomizeOptions.js'
 export default function HouseGenStep2() {
-    const {selectedPacks} = usePackSwitch()
+    const {filterLotTraits, selectedPackLotTraits} = usePackSwitch()
+    const navigate = useNavigate()
     const [checked, setCheck] = useState(false)
+    const [submitted, setSubmitted] = useState(false)
     const [errKey, setErrKey] = useState([])
     const [houseGenOpts, setHouseGenOpts] = useState({
         rooms: {min: 0, max: 30},
@@ -25,6 +27,18 @@ export default function HouseGenStep2() {
         pallete: {checked}
     }
 
+    useEffect(()=>{
+        try{
+            const fetchLTS = async () => {
+                await filterLotTraits()
+            }
+            fetchLTS()
+        } 
+        catch(err){
+            console.log(err)
+        }
+    }, [submitted])
+
     const handleChange = (e) => {
         // grabs the name after 'min-' or 'max-' ex: sims, budget, etc
         let optionName = e.event.target.name.substring(4)
@@ -34,32 +48,40 @@ export default function HouseGenStep2() {
         setHouseGenOpts({...houseGenOpts, [optionName]: {...houseGenOpts[optionName], [subOptionMinMax]: e.value}})
     }
 
-    const handleSubmit = () => {
-        let errKeys = []
-        for(const key in houseGenOpts){
-            // console.log(key, "key in obj loop")
-            if(key === 'pallete') break;
-            let min = houseGenOpts[key].min
-            let max = houseGenOpts[key].max
-            let defaultMin = defaultOptions[key].min
-            let defaultMax = defaultOptions[key].max
-            console.log(defaultMax, defaultMin, max, min, key)
-            // console.log(min, "MIN", max, "MAX", defaultMax, "DEFMAX", defaultMin, "DEFMIN")
-            if(min < defaultMin || max > defaultMax || max < min || min > max){
-                // setErrorMsg(true)
-                // console.log("ERROR WITH ", key)
-                errKeys.push(key)
+    const generateRandomHouseConstraints = async () =>{
+            let errKeys = []
+            for(const key in houseGenOpts){
+                // console.log(key, "key in obj loop")
+                if(key === 'pallete') break;
+                let min = houseGenOpts[key].min
+                let max = houseGenOpts[key].max
+                let defaultMin = defaultOptions[key].min
+                let defaultMax = defaultOptions[key].max
+                console.log(defaultMax, defaultMin, max, min, key)
+                // console.log(min, "MIN", max, "MAX", defaultMax, "DEFMAX", defaultMin, "DEFMIN")
+                if(min < defaultMin || max > defaultMax || max < min || min > max){
+                    // setErrorMsg(true)
+                    // console.log("ERROR WITH ", key)
+                    errKeys.push(key)
+                }
             }
+            if(errKeys.length !== 0) {
+                console.log("in err")
+                console.log(errKeys)
+                setErrKey(errKeys)
+            }
+            setHouseGenOpts(houseGenOpts)
+            console.log(houseGenOpts)
         }
-        if(errKeys.length !== 0) {
-            console.log("in err")
-            console.log(errKeys)
-            setErrKey(errKeys)
-        } else{
-            console.log(selectedPacks)
-            randomizeOptions(houseGenOpts, selectedPacks)
-            setHouseGenOpts(defaultOptions)
-        }
+
+
+    const handleSubmit = async () => {
+            setSubmitted(true)
+            await generateRandomHouseConstraints()
+              let randomHouseObj = randomizeOptions(houseGenOpts, selectedPackLotTraits)
+                console.log(randomHouseObj)
+                setHouseGenOpts(defaultOptions)
+            navigate("/house-generate/results", {state:{results: randomHouseObj}})
     }
 
     return(

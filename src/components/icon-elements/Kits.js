@@ -52,8 +52,9 @@ export default function Kits() {
             >
             {kits.map((e) => {
                     return(
-                        <>
+                        // <>
                             <Flex 
+                                key={e.name}
                                 justifyContent="evenly"
                                 alignItems="center"
                                 direction="column"
@@ -83,7 +84,7 @@ export default function Kits() {
                                     />
                                 </Box>
                             </Flex>
-                        </>
+                        // </>
                     )})}
             </Flex>
             </Box>

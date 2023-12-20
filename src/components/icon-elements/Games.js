@@ -52,8 +52,9 @@ export default function Games() {
             >
             {gamePacks.map((e) => {
                     return(
-                        <>
+                        // <>
                             <Flex 
+                                key={e.name}
                                 justifyContent="evenly"
                                 alignItems="center"
                                 direction="column"
@@ -84,7 +85,7 @@ export default function Games() {
                                     />
                                 </Box>
                             </Flex>
-                        </>
+                        // </>
                     )})}
             </Flex>
             </Box>

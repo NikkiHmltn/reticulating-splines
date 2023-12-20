@@ -52,12 +52,13 @@ export default function Stuffs() {
             >
             {stuffPacks.map((e) => {
                     return(
-                        <>
+                        // <>
                             <Flex 
                                 justifyContent="evenly"
                                 alignItems="center"
                                 direction="column"
                                 wrap
+                                key={e.name}
                                 width={'25%'}
                                 height={100}
                                 onClick={(e)=> handleIconClick(e)}
@@ -86,7 +87,7 @@ export default function Stuffs() {
                                     />
                                 </Box>
                             </Flex>
-                        </>
+                        // </>
                     )})}
             </Flex>
             </Box>
