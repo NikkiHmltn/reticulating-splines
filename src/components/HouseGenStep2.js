@@ -15,7 +15,7 @@ export default function HouseGenStep2() {
         budget: {min: 10000, max: 1000000},
         lts: {min: 0, max: 10},
         ltc: {min: 0, max: 3},
-        pallete: {checked}
+        palette: false
     })
 
     const defaultOptions = {
@@ -24,7 +24,7 @@ export default function HouseGenStep2() {
         budget: {min: 10000, max: 1000000},
         lts: {min: 0, max: 10},
         ltc: {min: 0, max: 3},
-        pallete: {checked}
+        palette: false
     }
 
     useEffect(()=>{
@@ -51,8 +51,15 @@ export default function HouseGenStep2() {
     const generateRandomHouseConstraints = async () =>{
             let errKeys = []
             for(const key in houseGenOpts){
-                // console.log(key, "key in obj loop")
-                if(key === 'pallete') break;
+                console.log(houseGenOpts[key], "val in obj loop")
+                if(key === 'palette') {
+                    console.log(houseGenOpts.palette)
+                    let boolVal = checked
+                    console.log(boolVal)
+
+                    setHouseGenOpts({...houseGenOpts, palette: boolVal}); 
+                    break;
+                }
                 let min = houseGenOpts[key].min
                 let max = houseGenOpts[key].max
                 let defaultMin = defaultOptions[key].min
@@ -70,13 +77,19 @@ export default function HouseGenStep2() {
                 console.log(errKeys)
                 setErrKey(errKeys)
             }
-            setHouseGenOpts(houseGenOpts)
+            console.log(houseGenOpts.palette)
+            console.log(checked)
+            // setHouseGenOpts({...houseGenOpts, palette: checked})
             console.log(houseGenOpts)
+
+            setHouseGenOpts(houseGenOpts)
+
         }
 
 
     const handleSubmit = async () => {
             setSubmitted(true)
+            console.log(houseGenOpts, "HOUSE GEN OPTS BEFORE GENERATION")
             await generateRandomHouseConstraints()
               let randomHouseObj = randomizeOptions(houseGenOpts, selectedPackLotTraits)
                 console.log(randomHouseObj)
@@ -149,7 +162,7 @@ export default function HouseGenStep2() {
             <Box margin={5}>
                 <Flex justifyContent="center" alignItems="center">
                 <Box>
-                    <Checkbox checked={checked} id='checkbox' label="Would you like to generate a color palette?" helperText='Check the box for "yes"' onChange={({ checked }) => setCheck(checked)}/>
+                    <Checkbox checked={checked} id='checkbox' label="Would you like to generate a color palette?" helperText='Check the box for "yes"' onChange={({ checked }) => (setCheck(checked))}/>
                 </Box>
                     <button className="custom-button" role="create button" aria-roledescription="create button" type='button' onClick={handleSubmit}>
                         CREATE
