@@ -53,11 +53,7 @@ export default function HouseGenStep2() {
             for(const key in houseGenOpts){
                 console.log(houseGenOpts[key], "val in obj loop")
                 if(key === 'palette') {
-                    console.log(houseGenOpts.palette)
-                    let boolVal = checked
-                    console.log(boolVal)
-
-                    setHouseGenOpts({...houseGenOpts, palette: boolVal}); 
+                    houseGenOpts[key] = houseGenOpts[key] ? true : false
                     break;
                 }
                 let min = houseGenOpts[key].min
@@ -78,11 +74,8 @@ export default function HouseGenStep2() {
                 setErrKey(errKeys)
             }
             console.log(houseGenOpts.palette)
-            console.log(checked)
-            // setHouseGenOpts({...houseGenOpts, palette: checked})
-            console.log(houseGenOpts)
 
-            setHouseGenOpts(houseGenOpts)
+            // setHouseGenOpts(houseGenOpts)
 
         }
 
@@ -95,6 +88,13 @@ export default function HouseGenStep2() {
                 console.log(randomHouseObj)
                 setHouseGenOpts(defaultOptions)
             navigate("/house-generate/results", {state:{results: randomHouseObj}})
+    }
+
+    const handleCheck = async (checked) => {
+        setCheck(checked)
+        setHouseGenOpts({...houseGenOpts, palette: checked ? true : false})
+        console.log(checked)
+        console.log(houseGenOpts)
     }
 
     return(
@@ -162,7 +162,7 @@ export default function HouseGenStep2() {
             <Box margin={5}>
                 <Flex justifyContent="center" alignItems="center">
                 <Box>
-                    <Checkbox checked={checked} id='checkbox' label="Would you like to generate a color palette?" helperText='Check the box for "yes"' onChange={({ checked }) => (setCheck(checked))}/>
+                    <Checkbox checked={checked} id='checkbox' label="Would you like to generate a color palette?" helperText='Check the box for "yes"' onChange={({ checked }) => (handleCheck(checked))}/>
                 </Box>
                     <button className="custom-button" role="create button" aria-roledescription="create button" type='button' onClick={handleSubmit}>
                         CREATE

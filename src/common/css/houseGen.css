@@ -23,3 +23,9 @@
 .rDA {
     margin-left: 0 !important;
 }
+
+.palette-color {
+    height: 200px;
+    width: 100px;
+    border: 1px solid black;
+}

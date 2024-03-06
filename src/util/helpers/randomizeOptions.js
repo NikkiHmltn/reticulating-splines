@@ -8,26 +8,18 @@ const randomizeOptions = (houseConstraints, packLotTraits) => {
         budget: 0,
         lts: 0,
         ltc: 0,
-        pallete: false
+        palette: false
     }
-    // let randomizedOptionsObj = {
-    //     rooms: 0,
-    //     sims: 0,
-    //     budget: 0,
-    //     lts: 0,
-    //     ltc: 0,
-    //     pallete: false
-    // }
 
         console.log("genHouseOptions", houseConstraints)
         for(const key in houseConstraints){
-            if(key === 'pallete') {
-                houseConstraints['pallete'] = houseConstraints.pallete.checked; 
+            if(key === 'palette') {
+                randomizedObj['palette'] = houseConstraints.palette; 
                 break;
             }
             let max = houseConstraints[key].max
             let min = houseConstraints[key].min
-            let randomInt = Math.floor(Math.random() * (max - min) + 1) + min
+            let randomInt = Math.floor(Math.random() * (max - min) + min)
             randomizedObj[key] = randomInt
         }
         // return randomizedObj

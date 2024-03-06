@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router-dom'
-import { Accordion, Box, Divider, Flex, Text, Heading, Image } from 'gestalt';
+import {Box, Divider, Flex, Text, Heading } from 'gestalt';
 import '../common/css/houseGen.css'
+import LotCards from '../components/LotCards';
+import Palette from '../components/Palette'
 
 export default function HouseGenResults() {
     const location = useLocation()
@@ -11,20 +13,13 @@ export default function HouseGenResults() {
         rooms: randomObj.randomizedObj.rooms,
         budget: randomObj.randomizedObj.budget,
         sims: randomObj.randomizedObj.sims,
-        pallete: randomObj.randomizedObj.pallete,
+        palette: randomObj.randomizedObj.palette,
         lts: randomObj.randomLTS,
         ltc: randomObj.randomLTC
     }
 
-    // useEffect(() => {
-
-    //     // console.log(location.state.results)
-    // },[])
-
-
-
     console.log(resultsObj)
-
+    // TODO: look into handleBeforeUnload/beforeUnload and setting to session storage
 
     return(
         <Flex
@@ -58,7 +53,15 @@ export default function HouseGenResults() {
             </Box>
             <br></br>
             <Box margin={5} padding={3}>
-                PALLETE
+                <Text weight='bold' size="400">Palette</Text>
+                <Flex 
+                    direction="row"
+                    alignItems="center"
+                    height={200}
+                    width={300}
+                >
+                {resultsObj.palette ? <Palette /> : "No palettes to display"}
+                </Flex>
             </Box>
             <Box margin={5} padding={1} width={'100%'}
                 display='flex' justifyContent='center' 
@@ -66,102 +69,13 @@ export default function HouseGenResults() {
                 <Box margin={2}>
                     <Heading align='center'>Lot Traits</Heading>
                 </Box>
-                <Flex alignItems="center" justifyContent='center' wrap gap={{ row: 1, column: 0 }}>
-                    {resultsObj.lts.map((trait, idx) => {
-                        return(
-                            <Box key={idx} 
-                                display="flex"
-                                direction='column'
-                                alignItems="center"
-                                justifyContent="center"
-                                padding={2}
-                            >
-                                <h4>{trait.name}</h4>
-                                <Box width={75} height={80}>
-                                    <Image src={trait.icon} alt={`image of ${trait.icon} icon`}
-                                    naturalHeight={1}
-                                    naturalWidth={1}
-                                />
-                                </Box>
-                                <Box>
-                                    <Accordion.Expandable
-                                        size={"md"}
-                                        padding={0}
-                                        id="accordionExample - Heading expandable"
-                                        items={[
-                                            {
-                                            children: (
-                                                <Box>
-                                                    <Text size="300">
-                                                        <h3>
-                                                            Description:
-                                                        </h3> 
-                                                        {trait.description}
-                                                    </Text>
-                                                    <Text size="300">
-                                                        <h3>Effect:</h3> {trait.effect}
-                                                    </Text>
-                                                </Box>
-                                                ),
-                                            summary: ['See More'],
-                                            },
-                                        ]}
-                                    />
-                                </Box>
-                            </Box>
-                        )
-                    })}
-                </Flex>
+                <LotCards lotTraits={resultsObj.lts}/>
                 <Box marginTop={5}>
                     <Heading align='center'>Lot Challenges</Heading>
                 </Box>
-                <Flex alignItems="center" justifyContent='center' wrap gap={{ row: 1, column: 0 }}>
-                {resultsObj.ltc.map((trait, idx) => {
-                    return(
-                        <Box key={idx} 
-                        display="flex"
-                        direction='column'
-                        alignItems="center"
-                        justifyContent="center"
-                        padding={2}
-                        >
-                            <h4>{trait.name}</h4>
-                            <Box width={75} height={80}>
-                                <Image src={trait.icon} alt={`image of ${trait.icon} icon`}
-                                naturalHeight={1}
-                                naturalWidth={1}
-                            />
-                            </Box>
-                            <Box>
-                                <Accordion.Expandable
-                                    size={"md"}
-                                    padding={0}
-                                    id="accordionExample - Heading expandable"
-                                    items={[
-                                        {
-                                        children: (
-                                            <Box>
-                                                <Text size="300">
-                                                    <h3>
-                                                        Description:
-                                                    </h3> 
-                                                    {trait.description}
-                                                </Text>
-                                                <Text size="300">
-                                                    <h3>Effect:</h3> {trait.effect}
-                                                </Text>
-                                            </Box>
-                                            ),
-                                        summary: ['See More'],
-                                        },
-                                    ]}
-                                />
-                            </Box>
-                        </Box>
-                    )
-                })}
-                </Flex>
+                <LotCards lotTraits={resultsObj.ltc}/>
             </Box>
         </Flex>
+        // A refresh options button would be nice
     )
 }
