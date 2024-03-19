@@ -53,26 +53,29 @@ export default function HouseGenResults() {
             </Box>
             <br></br>
             <Box margin={5} padding={3}>
-                <Text weight='bold' size="400">Palette</Text>
+                <Text weight='bold' align="center" size="500">Color Palette</Text>
+                <br></br>
                 <Flex 
                     direction="row"
                     alignItems="center"
-                    height={200}
-                    width={300}
+                    height="100%"
+                    width="100%"
                 >
                 {resultsObj.palette ? <Palette /> : "No palettes to display"}
                 </Flex>
             </Box>
-            <Box margin={5} padding={1} width={'100%'}
+            <Box margin={5} padding={1} width={'80%'}
                 display='flex' justifyContent='center' 
                 alignContent='center' direction='column'>
                 <Box margin={2}>
-                    <Heading align='center'>Lot Traits</Heading>
+                    <Heading align='center' size="500">Lot Traits</Heading>
                 </Box>
+                <Divider/>
                 <LotCards lotTraits={resultsObj.lts}/>
-                <Box marginTop={5}>
-                    <Heading align='center'>Lot Challenges</Heading>
+                <Box margin={5}>
+                    <Heading align='center' size='500'>Lot Challenges</Heading>
                 </Box>
+                <Divider/>
                 <LotCards lotTraits={resultsObj.ltc}/>
             </Box>
         </Flex>

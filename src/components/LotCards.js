@@ -2,10 +2,8 @@ import { Accordion, Box, Flex, Text, Image } from 'gestalt';
 import '../common/css/houseGen.css'
 
 export default function LotCards(props){
-    console.log(props)
-
     return(
-        <Flex alignItems="center" justifyContent='center' wrap gap={{ row: 1, column: 0 }}>
+        <Flex alignItems="center" justifyContent='center' wrap>
         {props.lotTraits.map((trait, idx) => {
             return(
                 <Box key={idx} 
@@ -16,7 +14,7 @@ export default function LotCards(props){
                 padding={2}
                 >
                     <h4>{trait.name}</h4>
-                    <Box width={75} height={80}>
+                    <Box width={50} height={50}>
                         <Image src={trait.icon} alt={`image of ${trait.icon} icon`}
                         naturalHeight={1}
                         naturalWidth={1}
@@ -24,8 +22,8 @@ export default function LotCards(props){
                     </Box>
                     <Box>
                         <Accordion.Expandable
-                            size={"md"}
-                            padding={0}
+                            size={"sm"}
+                            // padding={0}
                             id="accordionExample - Heading expandable"
                             items={[
                                 {
@@ -42,7 +40,7 @@ export default function LotCards(props){
                                         </Text>
                                     </Box>
                                     ),
-                                summary: ['See More'],
+                                summary: ['Details'],
                                 },
                             ]}
                         />
