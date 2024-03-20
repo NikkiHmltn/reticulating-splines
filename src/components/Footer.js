@@ -8,6 +8,7 @@ export default function Footer() {
             color='inverse'
             position="absolute"
             role="footer"
+            bottom="true"
             // bottom='true'
             width={'100%'}
         >

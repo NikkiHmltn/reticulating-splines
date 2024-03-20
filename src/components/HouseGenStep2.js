@@ -1,4 +1,4 @@
-import {Box, Flex, NumberField, Heading, Checkbox} from 'gestalt'
+import {Box, Flex, NumberField, Heading} from 'gestalt'
 import { useEffect, useState } from 'react'
 import  { useNavigate }  from 'react-router-dom'
 import usePackSwitch from '../util/state/PackContext.js'
@@ -6,7 +6,6 @@ import { randomizeOptions } from '../util/helpers/randomizeOptions.js'
 export default function HouseGenStep2() {
     const {filterLotTraits, selectedPackLotTraits} = usePackSwitch()
     const navigate = useNavigate()
-    const [checked, setCheck] = useState(false)
     const [submitted, setSubmitted] = useState(false)
     const [errKey, setErrKey] = useState([])
     const [houseGenOpts, setHouseGenOpts] = useState({
@@ -15,7 +14,6 @@ export default function HouseGenStep2() {
         budget: {min: 10000, max: 1000000},
         lts: {min: 0, max: 10},
         ltc: {min: 0, max: 3},
-        palette: false
     })
 
     const defaultOptions = {
@@ -24,7 +22,6 @@ export default function HouseGenStep2() {
         budget: {min: 10000, max: 1000000},
         lts: {min: 0, max: 10},
         ltc: {min: 0, max: 3},
-        palette: false
     }
 
     useEffect(()=>{
@@ -52,10 +49,6 @@ export default function HouseGenStep2() {
             let errKeys = []
             for(const key in houseGenOpts){
                 console.log(houseGenOpts[key], "val in obj loop")
-                if(key === 'palette') {
-                    houseGenOpts[key] = houseGenOpts[key] ? true : false
-                    break;
-                }
                 let min = houseGenOpts[key].min
                 let max = houseGenOpts[key].max
                 let defaultMin = defaultOptions[key].min
@@ -88,13 +81,6 @@ export default function HouseGenStep2() {
                 console.log(randomHouseObj)
                 setHouseGenOpts(defaultOptions)
             navigate("/house-generate/results", {state:{results: randomHouseObj}})
-    }
-
-    const handleCheck = async (checked) => {
-        setCheck(checked)
-        setHouseGenOpts({...houseGenOpts, palette: checked ? true : false})
-        console.log(checked)
-        console.log(houseGenOpts)
     }
 
     return(
@@ -161,9 +147,6 @@ export default function HouseGenStep2() {
             </Flex>
             <Box margin={5}>
                 <Flex justifyContent="center" alignItems="center">
-                <Box>
-                    <Checkbox checked={checked} id='checkbox' label="Would you like to generate a color palette?" helperText='Check the box for "yes"' onChange={({ checked }) => (handleCheck(checked))}/>
-                </Box>
                     <button className="custom-button" role="create button" aria-roledescription="create button" type='button' onClick={handleSubmit}>
                         CREATE
                     </button>

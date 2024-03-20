@@ -2,6 +2,9 @@ import { Accordion, Box, Flex, Text, Image } from 'gestalt';
 import '../common/css/houseGen.css'
 
 export default function LotCards(props){
+
+    
+
     return(
         <Flex alignItems="center" justifyContent='center' wrap>
         {props.lotTraits.map((trait, idx) => {

@@ -2,18 +2,15 @@ import { useLocation } from 'react-router-dom'
 import {Box, Divider, Flex, Text, Heading } from 'gestalt';
 import '../common/css/houseGen.css'
 import LotCards from '../components/LotCards';
-import Palette from '../components/Palette'
 
 export default function HouseGenResults() {
     const location = useLocation()
-    // const [results, setResults] = useState({})
 
     let randomObj = location.state.results
     let resultsObj = {
         rooms: randomObj.randomizedObj.rooms,
         budget: randomObj.randomizedObj.budget,
         sims: randomObj.randomizedObj.sims,
-        palette: randomObj.randomizedObj.palette,
         lts: randomObj.randomLTS,
         ltc: randomObj.randomLTC
     }
@@ -52,18 +49,6 @@ export default function HouseGenResults() {
                 </Text>
             </Box>
             <br></br>
-            <Box margin={5} padding={3}>
-                <Text weight='bold' align="center" size="500">Color Palette</Text>
-                <br></br>
-                <Flex 
-                    direction="row"
-                    alignItems="center"
-                    height="100%"
-                    width="100%"
-                >
-                {resultsObj.palette ? <Palette /> : "No palettes to display"}
-                </Flex>
-            </Box>
             <Box margin={5} padding={1} width={'80%'}
                 display='flex' justifyContent='center' 
                 alignContent='center' direction='column'>
@@ -71,12 +56,12 @@ export default function HouseGenResults() {
                     <Heading align='center' size="500">Lot Traits</Heading>
                 </Box>
                 <Divider/>
-                <LotCards lotTraits={resultsObj.lts}/>
+                {resultsObj.lts.length > 0 ? <LotCards lotTraits={resultsObj.lts}/> : <Heading align='center' size="300">No lot traits this time!</Heading> }
                 <Box margin={5}>
                     <Heading align='center' size='500'>Lot Challenges</Heading>
                 </Box>
                 <Divider/>
-                <LotCards lotTraits={resultsObj.ltc}/>
+                {resultsObj.ltc.length > 0 ? <LotCards lotTraits={resultsObj.ltc}/> : <Heading align='center' size='300'>No lot challenges this time!</Heading>}
             </Box>
         </Flex>
         // A refresh options button would be nice

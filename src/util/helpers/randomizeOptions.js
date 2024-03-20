@@ -8,15 +8,10 @@ const randomizeOptions = (houseConstraints, packLotTraits) => {
         budget: 0,
         lts: 0,
         ltc: 0,
-        palette: false
     }
 
         console.log("genHouseOptions", houseConstraints)
         for(const key in houseConstraints){
-            if(key === 'palette') {
-                randomizedObj['palette'] = houseConstraints.palette; 
-                break;
-            }
             let max = houseConstraints[key].max
             let min = houseConstraints[key].min
             let randomInt = Math.floor(Math.random() * (max - min) + min)
