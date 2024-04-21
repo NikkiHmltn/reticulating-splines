@@ -6,10 +6,7 @@ export default function Footer() {
             height={150}
             margin={-2}
             color='inverse'
-            position="absolute"
             role="footer"
-            bottom="true"
-            // bottom='true'
             width={'100%'}
         >
             <Flex 
@@ -31,8 +28,5 @@ export default function Footer() {
 
             </Flex>
         </Box>
-        // <footer>
-        //     FOOTER GOES HERE. DONT FORGET TO PUT A NON-AFFLICIATION CLAUSE HERE
-        // </footer>
     )
 }

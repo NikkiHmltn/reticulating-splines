@@ -2,21 +2,58 @@ import { useLocation } from 'react-router-dom'
 import {Box, Divider, Flex, Text, Heading } from 'gestalt';
 import '../common/css/houseGen.css'
 import LotCards from '../components/LotCards';
+import { useEffect, useState } from 'react';
+import { randomizeOptions } from '../util/helpers/randomizeOptions.js'
 
 export default function HouseGenResults() {
     const location = useLocation()
-
     let randomObj = location.state.results
-    let resultsObj = {
+    const [disabled, setDisabled] = useState(false)
+    const [resultsObj, setResultsObj] = useState({
         rooms: randomObj.randomizedObj.rooms,
         budget: randomObj.randomizedObj.budget,
         sims: randomObj.randomizedObj.sims,
         lts: randomObj.randomLTS,
         ltc: randomObj.randomLTC
+    })
+
+    useEffect(()=>{
+        async function init(){
+            if (localStorage.getItem('firstLoad') === null) {
+                await saveResults(randomObj)
+                localStorage.setItem("firstLoad", 1)
+            } else {
+                localStorage.setItem("HouseResults", JSON.stringify(resultsObj))
+            }
+        }
+        init()
+    },[resultsObj])
+
+    const handleRegenerate = async () => {
+        setDisabled(true)
+        const constraints = localStorage.getItem("HouseConstraints")
+        const selectedPacks = localStorage.getItem("UserPacks")
+        if(constraints && selectedPacks){
+            let newResults = randomizeOptions(JSON.parse(constraints), JSON.parse(selectedPacks))
+            await saveResults(newResults)
+            setTimeout(() => {
+                setDisabled(false)
+            }, 2000)
+            localStorage.setItem("HouseResults", JSON.stringify(resultsObj))
+        } else {
+            console.log("oops! error happened when regenerating constraints")
+        }
     }
 
-    console.log(resultsObj)
-    // TODO: look into handleBeforeUnload/beforeUnload and setting to session storage
+    const saveResults = async (results) => {
+        setResultsObj({
+            rooms: results.randomizedObj.rooms,
+            budget: results.randomizedObj.budget,
+            sims: results.randomizedObj.sims,
+            lts: results.randomLTS,
+            ltc: results.randomLTC
+        })
+    }
 
     return(
         <Flex
@@ -62,8 +99,12 @@ export default function HouseGenResults() {
                 </Box>
                 <Divider/>
                 {resultsObj.ltc.length > 0 ? <LotCards lotTraits={resultsObj.ltc}/> : <Heading align='center' size='300'>No lot challenges this time!</Heading>}
+                <Flex justifyContent="center" alignItems="center">
+                    <button className="custom-button" role="create button" aria-roledescription="create button" type='button' disabled={disabled} onClick={handleRegenerate}>
+                        Regenerate Results
+                    </button>
+                </Flex>        
             </Box>
         </Flex>
-        // A refresh options button would be nice
     )
 }

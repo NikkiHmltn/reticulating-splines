@@ -4,13 +4,13 @@ import HouseGen from './pages/HouseGen'
 import HouseGenResults from './pages/HouseGenResults'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import { PackProvier } from './util/state/PackContext';
+import { PackProvider } from './util/state/PackContext';
 import 'gestalt/dist/gestalt.css';
 import './common/css/houseGen.css'
 
 function App() {
   return (
-    <PackProvier>
+    <PackProvider>
       <div className="App">
         <Header />
         <Routes>
@@ -20,7 +20,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
-    </PackProvier>
+    </PackProvider>
   );
 }
 

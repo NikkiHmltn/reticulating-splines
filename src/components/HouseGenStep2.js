@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import  { useNavigate }  from 'react-router-dom'
 import usePackSwitch from '../util/state/PackContext.js'
 import { randomizeOptions } from '../util/helpers/randomizeOptions.js'
+
 export default function HouseGenStep2() {
     const {filterLotTraits, selectedPackLotTraits} = usePackSwitch()
     const navigate = useNavigate()
@@ -48,13 +49,12 @@ export default function HouseGenStep2() {
     const generateRandomHouseConstraints = async () =>{
             let errKeys = []
             for(const key in houseGenOpts){
-                console.log(houseGenOpts[key], "val in obj loop")
                 let min = houseGenOpts[key].min
                 let max = houseGenOpts[key].max
                 let defaultMin = defaultOptions[key].min
                 let defaultMax = defaultOptions[key].max
                 console.log(defaultMax, defaultMin, max, min, key)
-                // console.log(min, "MIN", max, "MAX", defaultMax, "DEFMAX", defaultMin, "DEFMIN")
+
                 if(min < defaultMin || max > defaultMax || max < min || min > max){
                     // setErrorMsg(true)
                     // console.log("ERROR WITH ", key)
@@ -66,16 +66,15 @@ export default function HouseGenStep2() {
                 console.log(errKeys)
                 setErrKey(errKeys)
             }
-            console.log(houseGenOpts.palette)
-
             // setHouseGenOpts(houseGenOpts)
-
+            localStorage.setItem("HouseConstraints", JSON.stringify(houseGenOpts))
         }
 
 
     const handleSubmit = async () => {
             setSubmitted(true)
-            console.log(houseGenOpts, "HOUSE GEN OPTS BEFORE GENERATION")
+            localStorage.setItem("UserPacks", JSON.stringify(selectedPackLotTraits))
+            // console.log(localStorage.getItem("UserPacks") || "[]")
             await generateRandomHouseConstraints()
               let randomHouseObj = randomizeOptions(houseGenOpts, selectedPackLotTraits)
                 console.log(randomHouseObj)

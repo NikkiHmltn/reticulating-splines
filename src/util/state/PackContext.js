@@ -4,7 +4,7 @@ import {getPacks, getTraits} from '../api/index'
 
 const PackContext = createContext(initialState)
 
-export const PackProvier = ({children}) => { //a provider allows all its children components to subscribe to the context's changes
+export const PackProvider = ({children}) => { //a provider allows all its children components to subscribe to the context's changes
     const [state, dispatch] = useReducer(packReducer, initialState)
 
     const addSelectedPack = (packName) =>{
