@@ -7,20 +7,21 @@ export default function Home() {
             alignItems="center"
             gap={4}
             >
-                <Heading size="500">
-                    Welcome to Reticulating Splines!
-                </Heading>
+            <Heading size="500">
+                Welcome to Reticulating Splines!
+            </Heading>
+            <Text>
+                This is where I keep my sims related generators. Currently I have the house generator, which you can use as a challenge generator for your home lots. 
+            </Text>
+            <hr></hr>
+            <Text>Please note this website is a <b>work in progress</b> and has known issues!</Text>
+            <Text>See the <b>Changelog</b> below for more details or contact us to report any issues/bugs.</Text>
+            <Text>Thank you!</Text>
+            <hr></hr>
+            <Box width={500}>
+                <Heading size="400">Changelog</Heading><Text>Version 1.0 (4.21.24)</Text>
+                <hr></hr>
                 <Text>
-                    This is where I keep my sims related generators. Currently I have the house generator, which you can use as a challenge generator for your home lots. 
-                </Text>
-                <hr></hr>
-                <Text>Please note this website is a <b>work in progress</b> and has known issues!</Text>
-                <Text>See the <b>Changelog</b> below for more details or contact us to report any issues/bugs.</Text>
-                <Text>Thank you!</Text>
-                <hr></hr>
-                <Box width={500}>
-                    <Heading size="400">Changelog</Heading><Text>Version 1.0 (4.21.24)</Text>
-                    <hr></hr>
                     New Features / Fixes:
                     <ul>
                         <li>Users can select/deselect chosen packs for housing generation</li>
@@ -45,7 +46,8 @@ export default function Home() {
                         <li>A challenge section for both sims and housing gameplay</li>
                         <li>A deselect all button for different pack types, because who actually owns every kit?</li>
                     </ul>
-                </Box>
+                </Text>
+            </Box>
         </Flex>
     )
 }

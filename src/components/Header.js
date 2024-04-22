@@ -1,9 +1,7 @@
-// import { useState } from "react"
 import { Box, Flex, Link, Text} from "gestalt"
 
 
 export default function Header() {
-    // const [activeIndex, setActiveIndex] = useState(0);
 
     return(
         <Box as="nav" 
@@ -30,30 +28,21 @@ export default function Header() {
                         House Generator
                     </Text>
                 </Link>
-                <Link href="/#" accessibilityLabel="navigation tab for Sim Generator page">
+                <Link href="/sim-generate" accessibilityLabel="navigation tab for Sim Generator page">
                     <Text size="400" color="inverse">
                         Sim Generator
                     </Text>
                 </Link>
-                <Link href="/#" accessibilityLabel="navigation tab for donation page">
+                <Link href="/donate" accessibilityLabel="navigation tab for donation page">
                     <Text size="400" color="inverse">
                         Donate
                     </Text>
                 </Link>
-
-                {/* <Tabs 
-                    activeTabIndex={activeIndex}
-                    onChange={({ activeTabIndex, event }) => {
-                    event.preventDefault();
-                    setActiveIndex(activeTabIndex);
-                    }}
-                    tabs={[
-                        {href: '/', text: 'Home'},
-                        {href: '/house-generate', text: 'House Generator'},
-                        {href: '/#', text: 'Sim Generator'},
-                        {href: '/#/#', text: 'Donate'},
-                    ]}
-                /> */}
+                <Link href="/contact" accessibilityLabel="navigation tab for contact page">
+                    <Text size="400" color="inverse">
+                        Contact
+                    </Text>
+                </Link>
             </Flex>
         </Box>
     )
