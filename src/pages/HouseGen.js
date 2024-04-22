@@ -30,7 +30,10 @@ const [loading, setLoading] = useState(true)
             <br></br>
             <br></br>
             <Spinner show={loading} accessibilityLabel="Loading Spinner"/>
-        </Box>
+            <br></br>
+            <Flex justifyContent='center' alignContent='center'>
+                <Text italic size="400">(This could take a second)</Text>
+            </Flex>        </Box>
     )
 
     if (loading) return loadingSpinner
