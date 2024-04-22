@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Heading, Box, Text } from 'gestalt'
+import { Heading, Box, Text, Spinner, Flex } from 'gestalt'
 import usePackSwitch from '../util/state/PackContext'
 import HouseGenStep1 from '../components/HouseGenStep1'
 import HouseGenStep2 from '../components/HouseGenStep2'
@@ -22,7 +22,18 @@ const [loading, setLoading] = useState(true)
         })()
     }, [loading])
 
-    if (loading) return <h1>ITS LOADING</h1>
+    const loadingSpinner = (
+        <Box height="80vh" padding={12}>
+            <Flex justifyContent='center' alignContent='center'>
+                <Text italic size="500">...Reticulating Splines...</Text>
+            </Flex>
+            <br></br>
+            <br></br>
+            <Spinner show={loading} accessibilityLabel="Loading Spinner"/>
+        </Box>
+    )
+
+    if (loading) return loadingSpinner
     if (!loading) {
         return(
             <>

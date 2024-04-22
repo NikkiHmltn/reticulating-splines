@@ -73,12 +73,21 @@ export default function HouseGenStep2() {
 
     const handleSubmit = async () => {
             setSubmitted(true)
+            // save user's packs to local storage
             localStorage.setItem("UserPacks", JSON.stringify(selectedPackLotTraits))
-            // console.log(localStorage.getItem("UserPacks") || "[]")
+
+            // if the first load and previous house results exist, remove them
+            if (localStorage.getItem("firstLoad")) localStorage.removeItem("firstLoad")
+            if (localStorage.getItem("HouseResults")) localStorage.removeItem("HouseResults")
+
+            // generate new housing constraints
             await generateRandomHouseConstraints()
-              let randomHouseObj = randomizeOptions(houseGenOpts, selectedPackLotTraits)
-                console.log(randomHouseObj)
-                setHouseGenOpts(defaultOptions)
+
+            // randomize all available options and set state
+            let randomHouseObj = randomizeOptions(houseGenOpts, selectedPackLotTraits)
+            setHouseGenOpts(defaultOptions)
+
+            // navigate user + results to the results page
             navigate("/house-generate/results", {state:{results: randomHouseObj}})
     }
 

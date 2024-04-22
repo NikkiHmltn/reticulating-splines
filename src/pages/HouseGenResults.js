@@ -19,40 +19,43 @@ export default function HouseGenResults() {
 
     useEffect(()=>{
         async function init(){
+            // check if this is the first load or a refresh
             if (localStorage.getItem('firstLoad') === null) {
-                await saveResults(randomObj)
                 localStorage.setItem("firstLoad", 1)
-            } else {
+                // save the results to local storage
                 localStorage.setItem("HouseResults", JSON.stringify(resultsObj))
+            } else {
+                // this is a refresh, so update state to the local storage results
+                setResultsObj(JSON.parse(localStorage.getItem("HouseResults")))
             }
         }
         init()
     },[resultsObj])
 
+    // Disables regenerate button and randomizes results again
     const handleRegenerate = async () => {
         setDisabled(true)
         const constraints = localStorage.getItem("HouseConstraints")
         const selectedPacks = localStorage.getItem("UserPacks")
         if(constraints && selectedPacks){
             let newResults = randomizeOptions(JSON.parse(constraints), JSON.parse(selectedPacks))
-            await saveResults(newResults)
+            let newHouse = {
+                rooms: newResults.randomizedObj.rooms,
+                budget: newResults.randomizedObj.budget,
+                sims: newResults.randomizedObj.sims,
+                lts: newResults.randomLTS,
+                ltc: newResults.randomLTC
+            }
+            // save new house results
+            localStorage.setItem("HouseResults", JSON.stringify(newHouse))
+            setResultsObj(newHouse)
+            // enable button after 2 seconds to prevent user spam
             setTimeout(() => {
                 setDisabled(false)
             }, 2000)
-            localStorage.setItem("HouseResults", JSON.stringify(resultsObj))
         } else {
             console.log("oops! error happened when regenerating constraints")
         }
-    }
-
-    const saveResults = async (results) => {
-        setResultsObj({
-            rooms: results.randomizedObj.rooms,
-            budget: results.randomizedObj.budget,
-            sims: results.randomizedObj.sims,
-            lts: results.randomLTS,
-            ltc: results.randomLTC
-        })
     }
 
     return(
