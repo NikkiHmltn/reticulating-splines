@@ -17,7 +17,7 @@ export default function Footer() {
             >
                 <Box height={50} maxWidth={200} padding={2}>
                     <Text color="inverse" size='200'>
-                        © 2023 Reticulating Splines
+                        © 2024 Reticulating Splines
                     </Text>
                 </Box>
                 <Box height={100} maxWidth={400} padding={2}>
@@ -25,7 +25,6 @@ export default function Footer() {
                         We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Electronic Arts, or any of its subsidiaries or its affiliates. Trademarks are the property of their respective owners. Game content and materials copyright Electronic Arts Inc. and its licensors.
                     </Text>
                 </Box>
-
             </Flex>
         </Box>
     )

@@ -3,8 +3,6 @@ import '../common/css/houseGen.css'
 
 export default function LotCards(props){
 
-    
-
     return(
         <Flex alignItems="center" justifyContent='center' wrap>
         {props.lotTraits.map((trait, idx) => {
@@ -26,16 +24,13 @@ export default function LotCards(props){
                     <Box>
                         <Accordion.Expandable
                             size={"sm"}
-                            // padding={0}
                             id="accordionExample - Heading expandable"
                             items={[
                                 {
                                 children: (
                                     <Box>
                                         <Text size="300">
-                                            <h3>
-                                                Description:
-                                            </h3> 
+                                            <h3>Description:</h3> 
                                             {trait.description}
                                         </Text>
                                         <Text size="300">

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import usePackSwitch from "../../util/state/PackContext"
+import { usePackSwitch } from "../../util/state/PackContext"
 import { Flex, Box, Image, Text, Heading } from "gestalt"
 
 export default function Expansions() {

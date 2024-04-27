@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Heading, Box, Text, Spinner, Flex } from 'gestalt'
-import usePackSwitch from '../util/state/PackContext'
+import { usePackSwitch } from '../util/state/PackContext'
 import HouseGenStep1 from '../components/HouseGenStep1'
 import HouseGenStep2 from '../components/HouseGenStep2'
 
 export default function HouseGen() {
 
-    // POTENTIAL IDEA: INITIALIZE STATE ON THIS PAGE AS WELL AS HAVE SELECTED/DESELECTED PACKS TO CHECK FOR INIT STATE 
-    // instead of displaying and selecting on this page, the actual context should be passed down to gen1/gen2 ?
 const {selectedPacks, deselectedPacks, initializeState} = usePackSwitch()
 
 const [loading, setLoading] = useState(true)
@@ -18,9 +16,8 @@ const [loading, setLoading] = useState(true)
                 await initializeState()
                 setLoading(false)
             }
-            
         })()
-    }, [loading])
+    }, [loading, deselectedPacks, initializeState, selectedPacks])
 
     const loadingSpinner = (
         <Box height="80vh" padding={12}>
@@ -33,7 +30,8 @@ const [loading, setLoading] = useState(true)
             <br></br>
             <Flex justifyContent='center' alignContent='center'>
                 <Text italic size="400">(This could take a second)</Text>
-            </Flex>        </Box>
+            </Flex>        
+        </Box>
     )
 
     if (loading) return loadingSpinner

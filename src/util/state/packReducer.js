@@ -9,7 +9,7 @@ export const initialState = {
     selectedPackLotTraits: [],
 }
 
-const packReducer = (state, action) =>{
+export const packReducer = (state, action) =>{
     const {type, payload} = action
     switch(type){
         case "SET_INIT_PACK_STATE":
@@ -39,22 +39,13 @@ const packReducer = (state, action) =>{
             for(let i=0; i < state.selectedPacks.length; i++){
                 // current pack in loop
                 let currPack = state.selectedPacks[i]
-                // for(let i = 0 ; i < state.lotTraits.length; i++){
-                    let foundTraitPack = state.lotTraits.filter(({pack}) => {
-                        // console.log(pack); 
-                        return pack === currPack.pk;
-                    })
-                    if(foundTraitPack.length > 0) {
-                        selectedPackLotTraits.push(foundTraitPack)
-                    }
-                    
-                    // for(let key in state.lotTraits[i]){
-                    //     if (state.lotTraits[i][key] === currPack.pk){
-                    //         selectedPackLotTraits.push(state.lotTraits[i])
-                    //     }
-                    // }
+                let foundTraitPack = state.lotTraits.filter(({pack}) => {
+                    return pack === currPack.pk;
+                })
+                if(foundTraitPack.length > 0) {
+                    selectedPackLotTraits.push(foundTraitPack)
+                }
             }
-            // selectedPackLotTraits.flat()
             let filteredPacks = []
             for(let obj in state.selectedPacks){
                 let currPackPK = state.selectedPacks[obj].pk
@@ -64,18 +55,15 @@ const packReducer = (state, action) =>{
                         return pack
                     }
                 }))
-            }
-                // console.log(filteredPacks.flat().flat())
-            
+            }            
             return{
                 ...state,
                 //the one array should now be the entire state of only selected packs that contain lot traits (LC and LT)
                 selectedPackLotTraits: selectedPackLotTraits.flat().flat()
             }
+
         default:
             throw new Error(`No case for type ${type} found in packReducer.`)
     }
 
 }
-
-export default packReducer

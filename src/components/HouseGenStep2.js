@@ -1,7 +1,7 @@
 import {Box, Flex, NumberField, Heading} from 'gestalt'
 import { useEffect, useState } from 'react'
 import  { useNavigate }  from 'react-router-dom'
-import usePackSwitch from '../util/state/PackContext.js'
+import { usePackSwitch } from '../util/state/PackContext.js'
 import { randomizeOptions } from '../util/helpers/randomizeOptions.js'
 
 export default function HouseGenStep2() {
@@ -35,7 +35,7 @@ export default function HouseGenStep2() {
         catch(err){
             console.log(err)
         }
-    }, [submitted])
+    }, [submitted, filterLotTraits])
 
     const handleChange = (e) => {
         // grabs the name after 'min-' or 'max-' ex: sims, budget, etc
@@ -47,29 +47,25 @@ export default function HouseGenStep2() {
     }
 
     const generateRandomHouseConstraints = async () =>{
-            let errKeys = []
-            for(const key in houseGenOpts){
-                let min = houseGenOpts[key].min
-                let max = houseGenOpts[key].max
-                let defaultMin = defaultOptions[key].min
-                let defaultMax = defaultOptions[key].max
-                console.log(defaultMax, defaultMin, max, min, key)
+        let errKeys = []
+        for(const key in houseGenOpts){
+            let min = houseGenOpts[key].min
+            let max = houseGenOpts[key].max
+            let defaultMin = defaultOptions[key].min
+            let defaultMax = defaultOptions[key].max
+            console.log(defaultMax, defaultMin, max, min, key)
 
-                if(min < defaultMin || max > defaultMax || max < min || min > max){
-                    // setErrorMsg(true)
-                    // console.log("ERROR WITH ", key)
-                    errKeys.push(key)
-                }
+            if(min < defaultMin || max > defaultMax || max < min || min > max){
+                errKeys.push(key)
             }
-            if(errKeys.length !== 0) {
-                console.log("in err")
-                console.log(errKeys)
-                setErrKey(errKeys)
-            }
-            // setHouseGenOpts(houseGenOpts)
-            localStorage.setItem("HouseConstraints", JSON.stringify(houseGenOpts))
         }
-
+        if(errKeys.length !== 0) {
+            console.log("in err")
+            console.log(errKeys)
+            setErrKey(errKeys)
+        }
+        localStorage.setItem("HouseConstraints", JSON.stringify(houseGenOpts))
+    }
 
     const handleSubmit = async () => {
             setSubmitted(true)
@@ -155,7 +151,7 @@ export default function HouseGenStep2() {
             </Flex>
             <Box margin={5}>
                 <Flex justifyContent="center" alignItems="center">
-                    <button className="custom-button" role="create button" aria-roledescription="create button" type='button' onClick={handleSubmit}>
+                    <button className="custom-button" type='button' onClick={handleSubmit}>
                         CREATE
                     </button>
                 </Flex>

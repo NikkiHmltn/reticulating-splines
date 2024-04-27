@@ -1,10 +1,11 @@
 import {createContext, useReducer, useContext} from 'react'
-import packReducer, { initialState } from './packReducer'
+import { packReducer, initialState } from './packReducer'
 import {getPacks, getTraits} from '../api/index'
 
 const PackContext = createContext(initialState)
 
-export const PackProvider = ({children}) => { //a provider allows all its children components to subscribe to the context's changes
+const PackProvider = ({children}) => { 
+    //a provider allows all its children components to subscribe to the context's changes
     const [state, dispatch] = useReducer(packReducer, initialState)
 
     const addSelectedPack = (packName) =>{
@@ -53,7 +54,7 @@ export const PackProvider = ({children}) => { //a provider allows all its childr
     }
 
     const filterLotTraits = async () => {
-        console.log("filtering lot traits")
+        // console.log("filtering lot traits")
         dispatch({
             type: "FILTER_LOT_TRAITS", 
         })
@@ -85,4 +86,7 @@ const usePackSwitch = () => {
     return context
 }
 
-export default usePackSwitch
+export {
+    usePackSwitch,
+    PackProvider
+}
