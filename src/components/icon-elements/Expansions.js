@@ -1,37 +1,12 @@
-import { useEffect } from "react";
 import { usePackSwitch } from "../../util/state/PackContext"
 import { Flex, Box, Image, Text, Heading } from "gestalt"
 
-export default function Expansions() {
-    const {expansions, selectedPacks, deselectedPacks, addSelectedPack, deselectPack} = usePackSwitch()
+export default function Expansions({handleIconClick}) {
+    const {expansions} = usePackSwitch()
 
-    const handleIconClick = async (e) => {
-        let packName;
-
-        if (e.target.tagName !== 'IMG' && e.target.tagName !== 'SPAN') {
-            return console.log('ERROR NOT THE RIGHT TARGET')
-        }
-        if (e.target.tagName === 'IMG'){
-            packName = e.target.alt
-        } else {
-            packName = e.target.innerText
-        }
-
-        if (selectedPacks.find(pack => pack.name === packName)){
-            e.target.classList.add('deselected-pack')
-            return await deselectPack(packName)
-        }
-        if (deselectedPacks.find(pack => pack.name === packName)){
-            e.target.classList.remove('deselected-pack')
-            return await addSelectedPack(packName)
-        } else {
-            console.log('neither fired off check for bugs you goose')
-        }
-    }
-
-    useEffect(()=>{
-        // console.log(selectedPacks, deselectedPacks)
-    }, [selectedPacks, deselectedPacks])
+    // useEffect(()=>{
+    //     // console.log(selectedPacks, deselectedPacks)
+    // }, [selectedPacks, deselectedPacks])
 
     return(
         <Box as='div' margin={5} maxWidth={500}>

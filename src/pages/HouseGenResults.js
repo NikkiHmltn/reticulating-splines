@@ -30,7 +30,8 @@ export default function HouseGenResults() {
             }
         }
         init()
-    },[resultsObj])
+        // eslint-disable-next-line
+    },[])
 
     // Disables regenerate button and randomizes results again
     const handleRegenerate = async () => {
@@ -103,7 +104,7 @@ export default function HouseGenResults() {
                 <Divider/>
                 {resultsObj.ltc.length > 0 ? <LotCards lotTraits={resultsObj.ltc}/> : <Heading align='center' size='300'>No lot challenges this time!</Heading>}
                 <Flex justifyContent="center" alignItems="center">
-                    <button className="custom-button" role="create button" aria-roledescription="create button" type='button' disabled={disabled} onClick={handleRegenerate}>
+                    <button className="custom-button" type='button' disabled={disabled} onClick={handleRegenerate}>
                         Regenerate Results
                     </button>
                 </Flex>        

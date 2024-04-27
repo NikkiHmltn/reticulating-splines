@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Heading, Box, Text, Spinner, Flex } from 'gestalt'
 import { usePackSwitch } from '../util/state/PackContext'
-import HouseGenStep1 from '../components/HouseGenStep1'
-import HouseGenStep2 from '../components/HouseGenStep2'
+import HouseGenStep1 from '../components/house-gen/HouseGenStep1'
+import HouseGenStep2 from '../components/house-gen/HouseGenStep2'
 
 export default function HouseGen() {
 
@@ -17,7 +17,7 @@ const [loading, setLoading] = useState(true)
                 setLoading(false)
             }
         })()
-    }, [loading, deselectedPacks, initializeState, selectedPacks])
+    })
 
     const loadingSpinner = (
         <Box height="80vh" padding={12}>

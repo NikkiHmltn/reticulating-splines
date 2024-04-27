@@ -1,8 +1,8 @@
 import {Box, Flex, NumberField, Heading} from 'gestalt'
 import { useEffect, useState } from 'react'
 import  { useNavigate }  from 'react-router-dom'
-import { usePackSwitch } from '../util/state/PackContext.js'
-import { randomizeOptions } from '../util/helpers/randomizeOptions.js'
+import { usePackSwitch } from '../../util/state/PackContext.js'
+import { randomizeOptions } from '../../util/helpers/randomizeOptions.js'
 
 export default function HouseGenStep2() {
     const {filterLotTraits, selectedPackLotTraits} = usePackSwitch()
@@ -35,7 +35,7 @@ export default function HouseGenStep2() {
         catch(err){
             console.log(err)
         }
-    }, [submitted, filterLotTraits])
+    }, [submitted])
 
     const handleChange = (e) => {
         // grabs the name after 'min-' or 'max-' ex: sims, budget, etc
