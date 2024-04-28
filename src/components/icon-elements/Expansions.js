@@ -1,7 +1,7 @@
 import { usePackSwitch } from "../../util/state/PackContext"
-import { Flex, Box, Image, Text, Heading } from "gestalt"
+import { Flex, Box, Image, Text, Heading, Button } from "gestalt"
 
-export default function Expansions({handleIconClick}) {
+export default function Expansions({handleIconClick, handleBulkDeselect, handleBulkSelect}) {
     const {expansions} = usePackSwitch()
 
     return(
@@ -20,6 +20,8 @@ export default function Expansions({handleIconClick}) {
                     direction="row"
                     wrap
                 >
+                    <Button text="Select All" onClick={(e) => handleBulkSelect(e,'E')}/>
+                    <Button text="Deselect All" onClick={(e) => handleBulkDeselect(e,'E')}/>
                 {expansions.map((e) => {
                     return(
                         <Flex 

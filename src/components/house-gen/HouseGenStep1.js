@@ -1,4 +1,4 @@
-import { Flex, Box } from "gestalt"
+import { Flex, Box, Button } from "gestalt"
 import '../../common/css/houseGen.css'
 import { usePackSwitch } from "../../util/state/PackContext"
 import Expansions from "../icon-elements/Expansions"
@@ -9,6 +9,7 @@ import Kits from "../icon-elements/Kits"
 export default function HouseGenStep1() {
     const {selectedPacks, deselectedPacks, addSelectedPack, deselectPack} = usePackSwitch()
 
+    // handles selection/deselection of individual packs
     const handleIconClick = async (e) => {
         let packName;
 
@@ -33,6 +34,25 @@ export default function HouseGenStep1() {
         }
     }
 
+    const handleBulkDeselect = (e, packType) => {
+        let parentToPacksNode = e.event.target.parentNode.parentNode.parentNode.childNodes
+
+        parentToPacksNode.forEach((child) => {
+            if (child.nodeName !== "BUTTON"){
+                child.childNodes[1].childNodes[0].childNodes[0].classList.add("deselected-pack")
+            }
+        })
+        
+        const packsToRemove = selectedPacks.filter(pack => pack.type === packType)
+        console.log(packsToRemove)
+
+    }
+
+    const handleBulkSelect = (packType) => {
+        console.log(selectedPacks, "selected packs in bulk deselect")
+
+    }
+
     return(
         <>
             <Box 
@@ -46,7 +66,7 @@ export default function HouseGenStep1() {
                     wrap
                 >
                     {/* IDEA: buttons for each pack type to "deselect all" */}
-                    <Expansions handleIconClick={handleIconClick}/>
+                    <Expansions handleIconClick={handleIconClick} handleBulkDeselect={handleBulkDeselect} handleBulkSelect={handleBulkSelect}/>
                     <Games handleIconClick={handleIconClick}/>
                     <Kits handleIconClick={handleIconClick}/>
                     <Stuffs handleIconClick={handleIconClick}/>
