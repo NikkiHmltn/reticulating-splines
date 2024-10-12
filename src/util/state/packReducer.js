@@ -23,7 +23,6 @@ export const packReducer = (state, action) =>{
                 lotTraits: payload.traits,
             }
         case "SELECT_PACK":
-            console.log("SELECT_PACK", payload)
             return {
                 ...state,
                 selectedPacks: [...state.selectedPacks, payload.selectedPacks,]
@@ -55,7 +54,8 @@ export const packReducer = (state, action) =>{
                         return pack
                     }
                 }))
-            }            
+            }       
+            // console.log(selectedPackLotTraits, "SELECTED LOT TRAITS IN REDUCER")     
             return{
                 ...state,
                 //the one array should now be the entire state of only selected packs that contain lot traits (LC and LT)

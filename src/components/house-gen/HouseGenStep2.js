@@ -25,17 +25,19 @@ export default function HouseGenStep2() {
         ltc: {min: 0, max: 3},
     }
 
-    useEffect(()=>{
-        try{
-            const fetchLTS = async () => {
-                await filterLotTraits()
-            }
-            fetchLTS()
-        } 
-        catch(err){
-            console.log(err)
-        }
-    }, [submitted])
+    // useEffect(()=>{
+    //     try{
+    //         const fetchLTS = async () => {
+    //             console.log("inside useeffect fetch", selectedPackLotTraits)
+    //             await filterLotTraits()
+    //             console.log("inside useeffect fetch after call", selectedPackLotTraits)
+    //         }
+    //         fetchLTS()
+    //     } 
+    //     catch(err){
+    //         console.log(err)
+    //     }
+    // }, [submitted])
 
     const handleChange = (e) => {
         // grabs the name after 'min-' or 'max-' ex: sims, budget, etc
@@ -47,6 +49,7 @@ export default function HouseGenStep2() {
     }
 
     const generateRandomHouseConstraints = async () =>{
+        // await filterLotTraits()
         let errKeys = []
         for(const key in houseGenOpts){
             let min = houseGenOpts[key].min
@@ -68,17 +71,21 @@ export default function HouseGenStep2() {
     }
 
     const handleSubmit = async () => {
+            console.log("before await filter lot in submit pt2")
+            console.log(selectedPackLotTraits)
+            console.log("after await filter lot in submit pt2")
+
             setSubmitted(true)
+            // await filterLotTraits()
             // save user's packs to local storage
             localStorage.setItem("UserPacks", JSON.stringify(selectedPackLotTraits))
 
             // if the first load and previous house results exist, remove them
             if (localStorage.getItem("firstLoad")) localStorage.removeItem("firstLoad")
             if (localStorage.getItem("HouseResults")) localStorage.removeItem("HouseResults")
-
             // generate new housing constraints
             await generateRandomHouseConstraints()
-
+            console.log("after await constraints, selectedPackLT", selectedPackLotTraits)
             // randomize all available options and set state
             let randomHouseObj = randomizeOptions(houseGenOpts, selectedPackLotTraits)
             setHouseGenOpts(defaultOptions)

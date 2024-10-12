@@ -6,7 +6,7 @@ import HouseGenStep2 from '../components/house-gen/HouseGenStep2'
 
 export default function HouseGen() {
 
-const {selectedPacks, deselectedPacks, initializeState} = usePackSwitch()
+const {selectedPacks, deselectedPacks, initializeState, selectedPackLotTraits} = usePackSwitch()
 
 const [loading, setLoading] = useState(true)
 
@@ -18,6 +18,10 @@ const [loading, setLoading] = useState(true)
             }
         })()
     })
+
+    const filterPackLotTraits = async() => {
+        return selectedPackLotTraits
+    }
 
     const loadingSpinner = (
         <Box height="80vh" padding={12}>
@@ -68,7 +72,7 @@ const [loading, setLoading] = useState(true)
                     </Text>
                     <br />
                     <br />
-                    <HouseGenStep2 />
+                    <HouseGenStep2 filterPackLotTraits={{filterPackLotTraits}}/>
                 </Box>
             </>
         )

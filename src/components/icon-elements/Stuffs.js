@@ -1,8 +1,8 @@
 import { usePackSwitch } from "../../util/state/PackContext"
-import { Flex, Box, Image, Text, Heading } from "gestalt"
+import { Flex, Box, Image, Text, Heading, Button } from "gestalt"
 import '../../common/css/houseGen.css'
 
-export default function Stuffs({handleIconClick}) {
+export default function Stuffs({handleIconClick, handleBulkDeselect, handleBulkSelect}) {
     const {stuffPacks} = usePackSwitch()
 
     return(
@@ -21,6 +21,8 @@ export default function Stuffs({handleIconClick}) {
                 direction="row"
                 wrap
             >
+                <Button text="Select All" onClick={(e) => handleBulkSelect(e,'S')}/>
+                    <Button text="Deselect All" onClick={(e) => handleBulkDeselect(e,'S')}/>
             {stuffPacks.map((e) => {
                     return(
                         <Flex 

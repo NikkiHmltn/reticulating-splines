@@ -38,6 +38,7 @@ export default function HouseGenResults() {
         setDisabled(true)
         const constraints = localStorage.getItem("HouseConstraints")
         const selectedPacks = localStorage.getItem("UserPacks")
+        // console.log(constraints, "constraint", selectedPacks, "user")
         if(constraints && selectedPacks){
             let newResults = randomizeOptions(JSON.parse(constraints), JSON.parse(selectedPacks))
             let newHouse = {

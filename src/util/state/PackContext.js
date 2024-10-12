@@ -8,6 +8,13 @@ const PackProvider = ({children}) => {
     //a provider allows all its children components to subscribe to the context's changes
     const [state, dispatch] = useReducer(packReducer, initialState)
 
+    const filterLotTraits = async () => {
+        console.log("filtering lot traits")
+        dispatch({
+            type: "FILTER_LOT_TRAITS", 
+        })
+    }
+
     const addSelectedPack = (packName) =>{
         let packToAdd = state.deselectedPacks.filter(pack => pack.name === packName)
         let addPackToSelectArr
@@ -24,6 +31,8 @@ const PackProvider = ({children}) => {
             type: "SELECT_PACK",
             payload: {selectedPacks: addPackToSelectArr[0]}
         })
+
+        filterLotTraits()
     }
 
     const deselectPack = (packName) => {
@@ -35,11 +44,12 @@ const PackProvider = ({children}) => {
             const removedPackIdx = state.selectedPacks.findIndex(pack => pack.name === packToRemove[0].name)
             packToRemove = state.selectedPacks.splice(removedPackIdx, 1)
         }
-
         dispatch({
             type: "DESELECT_PACK",
             payload: {deselectedPacks: packToRemove[0]}
         })
+
+        filterLotTraits()
     }
 
     const initializeState = async () => {
@@ -51,13 +61,6 @@ const PackProvider = ({children}) => {
             payload: {packs: allPacks, traits: lotTraitsFiltered}
         })
         
-    }
-
-    const filterLotTraits = async () => {
-        // console.log("filtering lot traits")
-        dispatch({
-            type: "FILTER_LOT_TRAITS", 
-        })
     }
 
     const value = {

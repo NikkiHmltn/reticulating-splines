@@ -1,6 +1,7 @@
 import {randomizedValues} from './randomizedValues'
 
 const randomizeOptions = (houseConstraints, packLotTraits) => {
+    console.log(packLotTraits)
     const randomizedObj = {
         rooms: 0,
         sims: 0,

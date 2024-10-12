@@ -39,18 +39,38 @@ export default function HouseGenStep1() {
 
         parentToPacksNode.forEach((child) => {
             if (child.nodeName !== "BUTTON"){
+                if(child.childNodes[1].childNodes[0].childNodes[0].classList.contains("selected-pack")) {
+                    child.childNodes[1].childNodes[0].childNodes[0].classList.remove("selected-pack")
+                }
                 child.childNodes[1].childNodes[0].childNodes[0].classList.add("deselected-pack")
             }
         })
         
         const packsToRemove = selectedPacks.filter(pack => pack.type === packType)
         console.log(packsToRemove)
-
+        packsToRemove.forEach((pack) => {
+            deselectPack(pack.name)
+        })
     }
 
-    const handleBulkSelect = (packType) => {
-        console.log(selectedPacks, "selected packs in bulk deselect")
+    const handleBulkSelect = (e, packType) => {
+        let parentToPacksNode = e.event.target.parentNode.parentNode.parentNode.childNodes
 
+        parentToPacksNode.forEach((child) => {
+            if (child.nodeName !== "BUTTON"){
+                if(child.childNodes[1].childNodes[0].childNodes[0].classList.contains("deselected-pack")) {
+                    child.childNodes[1].childNodes[0].childNodes[0].classList.remove("deselected-pack")
+                }
+                child.childNodes[1].childNodes[0].childNodes[0].classList.add("selected-pack")
+            }
+        })
+        
+        const packsToAdd = deselectedPacks.filter(pack => pack.type === packType)
+        console.log(packsToAdd)
+        packsToAdd.forEach((pack) => {
+            console.log(pack)
+            addSelectedPack(pack.name)
+        })
     }
 
     return(
@@ -65,11 +85,10 @@ export default function HouseGenStep1() {
                     direction="row"
                     wrap
                 >
-                    {/* IDEA: buttons for each pack type to "deselect all" */}
                     <Expansions handleIconClick={handleIconClick} handleBulkDeselect={handleBulkDeselect} handleBulkSelect={handleBulkSelect}/>
-                    <Games handleIconClick={handleIconClick}/>
-                    <Kits handleIconClick={handleIconClick}/>
-                    <Stuffs handleIconClick={handleIconClick}/>
+                    <Games handleIconClick={handleIconClick} handleBulkDeselect={handleBulkDeselect} handleBulkSelect={handleBulkSelect}/>
+                    <Kits handleIconClick={handleIconClick} handleBulkDeselect={handleBulkDeselect} handleBulkSelect={handleBulkSelect}/>
+                    <Stuffs handleIconClick={handleIconClick} handleBulkDeselect={handleBulkDeselect} handleBulkSelect={handleBulkSelect}/>
                 </Flex>
             </Box>
         </>

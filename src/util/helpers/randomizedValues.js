@@ -4,7 +4,7 @@ const randomizedValues = (randomizedObj, selectedPacks) => {
     // console.log(ltcArray, ltsArray)
     let randomLTC = new Set()
     let randomLTS = new Set()
-    
+    console.log("inside values")
   for(let i=0; i < randomizedObj.ltc; i++){
     //grab num from 0 - length
     let randomPackIdx = Math.floor(Math.random() * (ltcArray.length - 0) + 0)
